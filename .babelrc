@@ -1,0 +1,40 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "useBuiltIns": "entry",
+        "corejs": 3,
+        "targets": {
+          "browsers": "> 1%, ie >= 11, not op_mini all",
+          "node": 12
+        }
+      }
+    ],
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "@material-ui/icons"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/styles",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "@material-ui/styles"
+    ],
+    "lodash"
+  ]
+}
