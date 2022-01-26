@@ -12,11 +12,13 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles((theme) => ({
   checkBoxContainer: {
     marginLeft: 8,
+    borderBottom:`1px solid #cccccc`
   },
 }));
 
 const SectionCheckbox = (props) => {
   const styles = useStyles();
+  const { A1, A2, A3, A4, A5, A6, A7, A8, ETC } = props.answer;
   return (
     <>
       <div className={styles.checkBoxContainer}>
@@ -24,7 +26,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A1}
               name="A1"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -32,6 +34,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -52,7 +55,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A2}
               name="A2"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -60,6 +63,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -79,7 +83,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A3}
               name="A3"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -87,12 +91,13 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
           }
           label={
-            <Typography variant="body4" display="block" color="textPrimary">
+            <Typography variant="body2" display="block" color="textPrimary">
               3. ขณะเรียนสัญญาณอินเทอร์เน็ตหลุดเป็นระยะ
             </Typography>
           }
@@ -103,7 +108,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A4}
               name="A4"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -111,6 +116,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -130,7 +136,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A5}
               name="A5"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -138,6 +144,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -158,7 +165,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A6}
               name="A6"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -166,6 +173,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -182,7 +190,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A7}
               name="A7"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -190,6 +198,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -207,7 +216,7 @@ const SectionCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={A8}
               name="A8"
               render={({ onChange, value }) => (
                 <Checkbox
@@ -215,6 +224,7 @@ const SectionCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />

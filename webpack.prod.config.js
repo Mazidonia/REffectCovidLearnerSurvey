@@ -10,10 +10,10 @@ module.exports = {
   devtool: "cheap-module-source-map",
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "questionnaire"),
+    path: path.resolve(__dirname, "effect-covid-learner-survey"),
     filename: "[name].[chunkhash].js",
     chunkFilename: "[chunkhash].js",
-    publicPath: "/questionnaire/",
+    publicPath: "/effect-covid-learner-survey/",
   },
   module: {
     rules: [

@@ -5,7 +5,7 @@ import logo from "../../../assets/logo.png";
 const MainNavbar = (props) => (
   <AppBar elevation={0} {...props}>
     <Toolbar sx={{ height: 64 }}>
-      <RouterLink to="/questionnaire/teacher">
+      <RouterLink to="//effect-covid-learner-survey">
         <img src={logo} />
       </RouterLink>
     </Toolbar>

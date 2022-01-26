@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles((theme) => ({
   checkBoxContainer: {
     marginLeft: 8,
+    borderBottom:`1px solid #cccccc`
   },
   subjectName: {
     color: theme.palette.text.secondary,
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SectionOperateCheckbox = (props) => {
   const styles = useStyles();
+  const { Q5, Q6, Q7 } = props.defaultVal;
   return (
     <div style={{ backgroundColor: props.BG }}>
       <div className={styles.subjectContainer}>
@@ -43,7 +45,7 @@ const SectionOperateCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q5}
               name={`answer.${props.ID}.Q5`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -51,6 +53,7 @@ const SectionOperateCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -67,7 +70,7 @@ const SectionOperateCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q6}
               name={`answer.${props.ID}.Q6`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -75,6 +78,7 @@ const SectionOperateCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -91,7 +95,7 @@ const SectionOperateCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q7}
               name={`answer.${props.ID}.Q7`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -99,6 +103,7 @@ const SectionOperateCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />

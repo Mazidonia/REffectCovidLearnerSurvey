@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography } from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -14,39 +14,21 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 8,
     borderBottom:`1px solid #cccccc`
   },
-  subjectName: {
-    color: theme.palette.text.secondary,
-    fontSize: 13,
-  },
-  subjectContainer: {
-    padding: 8,
-  },
 }));
 
-const SectionOperateTheoryCheckbox = (props) => {
+const SectionCheckboxGeneral = (props) => {
   const styles = useStyles();
-  const { Q1, Q2, Q3, Q4, Q5, Q6, Q7 } = props.defaultVal;
+  const { A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, ETC_A18 } =
+    props.answer;
   return (
-    <div style={{ backgroundColor: props.BG }}>
-      <div className={styles.subjectContainer}>
-        <Typography
-          variant="body1"
-          display="block"
-          gutterBottom
-          color="primary"
-        >
-          <u>
-            {props.subject} {props.teacher}
-          </u>
-        </Typography>
-      </div>
+    <>
       <div className={styles.checkBoxContainer}>
         <FormControlLabel
           control={
             <Controller
               control={props.control}
-              defaultValue={Q1}
-              name={`answer.${props.ID}.Q1`}
+              defaultValue={A9}
+              name="A9"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -60,7 +42,9 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              เรียนไม่ค่อยเข้าใจเหมือนเรียนในห้องเรียนปกติ
+              1.
+              เรียนทฤษฎีหรือฝึกปฏิบัติหรือสังเกตการณ์สอนหรือฝึกสอนหรือฝึกงานหรือรับการนิเทศจาก
+              อาจารย์ผู้สอนในรูปแบบปกติ
             </Typography>
           }
         />
@@ -70,8 +54,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q2}
-              name={`answer.${props.ID}.Q2`}
+              defaultValue={A10}
+              name="A10"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -85,7 +69,7 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              มีปัญหาการสื่อสารกับความเข้าใจกับอาจารย์ผู้สอน
+              2. ผ่าน Line
             </Typography>
           }
         />
@@ -95,8 +79,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q3}
-              name={`answer.${props.ID}.Q3`}
+              defaultValue={A11}
+              name="A11"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -110,7 +94,7 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              มีปัญหาการทำงานและการส่งงาน
+              3. ผ่าน Google Meet
             </Typography>
           }
         />
@@ -120,8 +104,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q4}
-              name={`answer.${props.ID}.Q4`}
+              defaultValue={A12}
+              name="A12"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -135,7 +119,7 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              มีปัญหาการขาดสมาธิในการเรียน
+              4. ผ่านGoogleClassRoom
             </Typography>
           }
         />
@@ -145,8 +129,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q5}
-              name={`answer.${props.ID}.Q5`}
+              defaultValue={A13}
+              name="A13"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -160,7 +144,7 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              ขาดความเข้าใจในเรื่องที่ต้องฝึกปฏิบัติการ
+              5. ผ่าน Google Form
             </Typography>
           }
         />
@@ -170,8 +154,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q6}
-              name={`answer.${props.ID}.Q6`}
+              defaultValue={A14}
+              name="A14"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -185,7 +169,7 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              มีปัญหาเกี่ยวกับวัสดุเครื่องมือเครื่องจักรที่ต้องใช้ฝึกปฏิบัติการ
+              6. ผ่าน Microsoft Team
             </Typography>
           }
         />
@@ -195,8 +179,8 @@ const SectionOperateTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={Q7}
-              name={`answer.${props.ID}.Q7`}
+              defaultValue={A15}
+              name="A15"
               render={({ onChange, value }) => (
                 <Checkbox
                   icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
@@ -210,12 +194,116 @@ const SectionOperateTheoryCheckbox = (props) => {
           }
           label={
             <Typography variant="body2" display="block" color="textPrimary">
-              ไม่ได้ฝึกปฏิบัติฝึกปฏิบัติต้องรอฝึกจริงเมื่อสามารถเรียนตามปกติได้แล้ว
+              7. ผ่าน Zoom
             </Typography>
           }
         />
       </div>
-    </div>
+      <div className={styles.checkBoxContainer}>
+        <FormControlLabel
+          control={
+            <Controller
+              control={props.control}
+              defaultValue={A16}
+              name="A16"
+              render={({ onChange, value }) => (
+                <Checkbox
+                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                  checkedIcon={<CheckBoxIcon fontSize="small" />}
+                  onChange={(e) => onChange(e.target.checked)}
+                  checked={value}
+                  disabled={props.SUBMIT_FORM}
+                />
+              )}
+            />
+          }
+          label={
+            <Typography variant="body2" display="block" color="textPrimary">
+              8. ผ่าน Facebook
+            </Typography>
+          }
+        />
+      </div>
+
+      <div className={styles.checkBoxContainer}>
+        <FormControlLabel
+          control={
+            <Controller
+              control={props.control}
+              defaultValue={A17}
+              name="A17"
+              render={({ onChange, value }) => (
+                <Checkbox
+                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                  checkedIcon={<CheckBoxIcon fontSize="small" />}
+                  onChange={(e) => onChange(e.target.checked)}
+                  checked={value}
+                  disabled={props.SUBMIT_FORM}
+                />
+              )}
+            />
+          }
+          label={
+            <Typography variant="body2" display="block" color="textPrimary">
+              9. ผ่าน Youtube
+            </Typography>
+          }
+        />
+      </div>
+      <div className={styles.checkBoxContainer}>
+        <FormControlLabel
+          control={
+            <Controller
+              control={props.control}
+              defaultValue={A18}
+              name="A18"
+              render={({ onChange, value }) => (
+                <Checkbox
+                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                  checkedIcon={<CheckBoxIcon fontSize="small" />}
+                  onChange={(e) => {
+                    onChange(e.target.checked);
+                    props.onchange();
+                  }}
+                  checked={value}
+                  disabled={props.SUBMIT_FORM}
+                />
+              )}
+            />
+          }
+          label={
+            <Typography variant="body2" display="block" color="textPrimary">
+              10. อื่นๆ(โปรดระบุ)
+            </Typography>
+          }
+        />
+        <Controller
+          as={
+            <TextField
+              size={"small"}
+              variant="outlined"
+              style={{ width: 350 }}
+              margin="none"
+              autoFocus={true}
+              disabled={
+                A18 === true &&
+                props.watch === undefined &&
+                props.SUBMIT_FORM === false
+                  ? false
+                  : props.watch === true && props.SUBMIT_FORM === false
+                  ? false
+                  : true
+              }
+              error={!!props.errors?.ETC_A18}
+              helperText={props.errors?.ETC_A18?.message}
+            />
+          }
+          name="ETC_A18"
+          control={props.control}
+          defaultValue={ETC_A18 === null ? "" : ETC_A18}
+        />
+      </div>
+    </>
   );
 };
-export default SectionOperateTheoryCheckbox;
+export default SectionCheckboxGeneral;

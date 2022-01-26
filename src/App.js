@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRoutes, useLocation } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { positions, Provider } from "react-alert";
-import jwtDecode from "jwt-decode";
 import AlertTemplate from "react-alert-template-basic";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -15,7 +14,7 @@ import * as actions from "./store/actions/index";
 const queryClient = new QueryClient();
 
 const options = {
-  timeout: 3000,
+  timeout: 3500,
   position: positions.BOTTOM_CENTER,
 };
 
@@ -37,13 +36,7 @@ const App = () => {
       });
   }, []);
 
-  let TYPE = null;
-  if (refreshToken !== null) {
-    const decoded = jwtDecode(refreshToken);
-    TYPE = decoded.TYPE;
-  }
-  //console.log(location);
-  const routing = useRoutes(routes(refreshToken !== null, TYPE));
+  const routing = useRoutes(routes(refreshToken !== null));
 
   return (
     <ThemeProvider theme={themeMUI}>

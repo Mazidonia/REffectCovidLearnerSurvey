@@ -15,10 +15,10 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (accessToken, refreshToken, teacherData) => {
+export const authSuccess = (accessToken, refreshToken, studentData) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    teacherData: teacherData,
+    studentData: studentData,
     accessToken: accessToken,
     refreshToken: refreshToken,
   };
@@ -38,7 +38,7 @@ export const authClearError = () => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("teacherData");
+  localStorage.removeItem("studentData");
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("expirationAccessToken");
@@ -77,7 +77,7 @@ export const getAccessTokenFromServer = () => {
     // get refreshToken จาก localStorage เพื่อที่จะขอ accessToken ใหม่โดยแนบ refreshToken ไป
     //const refreshToken = localStorage.getItem("refreshToken");
     return axios
-      .get("questionnaire/auth/renew-access-token", {
+      .get("effect-covid-learner-survey/auth/renew-access-token", {
         headers: { "x-refresh-token": refreshToken },
       })
       .then((res) => {
@@ -126,7 +126,7 @@ export const auth = (endPoint, authData) => {
       return axios
         .post(endPoint, authData)
         .then((res) => {
-          const { accessToken, refreshToken, teacherData } = res.data;
+          const { accessToken, refreshToken, studentData } = res.data;
           const decodedAccessToken = jwtDecode(accessToken);
           const decodedRefreshToken = jwtDecode(refreshToken);
 
@@ -139,7 +139,7 @@ export const auth = (endPoint, authData) => {
             new Date().getTime() + (decodedRefreshToken.expiresIn - 5) * 1000
           );
 
-          localStorage.setItem("teacherData", JSON.stringify(teacherData));
+          localStorage.setItem("studentData", JSON.stringify(studentData));
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("expirationAccessToken", expirationAccessToken);
@@ -148,7 +148,7 @@ export const auth = (endPoint, authData) => {
             expirationRefreshToken
           );
 
-          dispatch(authSuccess(accessToken, refreshToken, teacherData));
+          dispatch(authSuccess(accessToken, refreshToken, studentData));
 
           //นับเวลาถอยหลัง ขอ accessToken ทุกๆ 5 นาที ก่อนหมดอายุ 5 วินาที
           dispatch(
@@ -188,9 +188,9 @@ export const authCheckState = () => {
         dispatch(logout());
         return Promise.reject("logout");
       } else {
-        const teacherData = localStorage.getItem("teacherData");
+        const studentData = localStorage.getItem("studentData");
         dispatch(
-          authSuccess(accessToken, refreshToken, JSON.parse(teacherData))
+          authSuccess(accessToken, refreshToken, JSON.parse(studentData))
         );
         dispatch(
           renewAccessTokenCountDown(

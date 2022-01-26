@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
@@ -14,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Title = (props) => {
   const styles = useStyles();
-  return <div className={styles.root}>{props.title}</div>;
+  return (
+    <div className={styles.root}>
+      <Typography variant="h5" display="block">
+        {props.title}
+      </Typography>
+    </div>
+  );
 };
 
 Title.propTypes = {

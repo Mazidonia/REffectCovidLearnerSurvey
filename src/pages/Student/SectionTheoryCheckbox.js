@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles((theme) => ({
   checkBoxContainer: {
     marginLeft: 8,
+    borderBottom:`1px solid #cccccc`
   },
   subjectName: {
     color: theme.palette.text.secondary,
@@ -24,8 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SectionTheoryCheckbox = (props) => {
   const styles = useStyles();
+  const { Q1, Q2, Q3, Q4 } = props.defaultVal;
   return (
-    <div style={{backgroundColor:props.BG}}>
+    <div style={{ backgroundColor: props.BG }}>
       <div className={styles.subjectContainer}>
         <Typography
           variant="body1"
@@ -43,7 +45,7 @@ const SectionTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q1}
               name={`answer.${props.ID}.Q1`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -51,6 +53,7 @@ const SectionTheoryCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -67,7 +70,7 @@ const SectionTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q2}
               name={`answer.${props.ID}.Q2`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -75,6 +78,7 @@ const SectionTheoryCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -91,7 +95,7 @@ const SectionTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q3}
               name={`answer.${props.ID}.Q3`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -99,6 +103,7 @@ const SectionTheoryCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />
@@ -115,7 +120,7 @@ const SectionTheoryCheckbox = (props) => {
           control={
             <Controller
               control={props.control}
-              defaultValue={false}
+              defaultValue={Q4}
               name={`answer.${props.ID}.Q4`}
               render={({ onChange, value }) => (
                 <Checkbox
@@ -123,6 +128,7 @@ const SectionTheoryCheckbox = (props) => {
                   checkedIcon={<CheckBoxIcon fontSize="small" />}
                   onChange={(e) => onChange(e.target.checked)}
                   checked={value}
+                  disabled={props.SUBMIT_FORM}
                 />
               )}
             />

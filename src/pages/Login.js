@@ -40,6 +40,15 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "3px solid #8756D2",
     boxShadow: "0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%)",
   },
+  titleContainerStyle: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#8756D2",
+    padding: 24,
+    borderRadius: 4,
+    boxShadow: "0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%)",
+  },
 }));
 
 const Login = () => {
@@ -56,9 +65,9 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    const endPoint = "questionnaire/auth/login";
+    const endPoint = "effect-covid-learner-survey/auth/login";
     dispatch(actions.auth(endPoint, data)).then(() => {
-      console.log("login OK");
+      console.log("login success");
     });
   };
 
@@ -82,7 +91,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Teacher</title>
+        <title>Login | Student</title>
       </Helmet>
       <Box
         sx={{
@@ -96,16 +105,22 @@ const Login = () => {
         }}
       >
         <Container maxWidth="xs">
+          <div className={styles.titleContainerStyle}>
+            <WhiteTextTypography gutterBottom variant="h3">
+              แบบสํารวจสภาพปัญหาการจัดเรียนการสอนออนไลน์ในสถานการณ์การแพร่ระบาดของ
+              โรคติดเชื้อไวรัสโคโรนา 19
+            </WhiteTextTypography>
+          </div>
           <div className={styles.containerStyle}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 1 }}>
                 <div className={styles.paper}>
-                  <Typography color="textPrimary" variant="h3">
+                  <Typography color="textPrimary" variant="h4">
                     เข้าสู่ระบบเพื่อเริ่มเซสชันของคุณ
                   </Typography>
                 </div>
               </Box>
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 1 }}>
                 <div className={styles.paper}>
                   <Typography
                     variant="overline"
@@ -147,6 +162,7 @@ const Login = () => {
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
                 name="password"
+                autoComplete="on"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

@@ -28,7 +28,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   return (
     <AppBar elevation={0} {...rest}>
       <Toolbar>
-        <RouterLink to="/lifelong-admin">
+        <RouterLink to="/effect-covid-learner-survey">
           <img src={logo} />
         </RouterLink>
 
@@ -42,10 +42,10 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
           >
             <NotificationsIcon />
           </Badge>
-        </IconButton> */}
+        </IconButton>
         <IconButton color="inherit">
           <InputIcon />
-        </IconButton>
+        </IconButton> */}
 
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>

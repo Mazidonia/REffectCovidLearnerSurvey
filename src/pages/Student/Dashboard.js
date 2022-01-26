@@ -7,52 +7,27 @@ import {
   Button,
   Paper,
   Typography,
+  TextField,
 } from "@material-ui/core";
+import { useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { useAlert } from "react-alert";
 import _ from "lodash";
 import { Helmet } from "react-helmet";
 import axios from "../../axios/axios-api";
-import { makeStyles } from "@material-ui/styles";
 import BreadcrumbItem from "../../components/BreadcrumbItem/BreadcrumbItem";
 import ErrorPage from "../../components/UI/Error/ErrorPage";
 import Loading from "../../components/UI/Loading/Loading";
 
 import Title from "../../components/UI/Title/Title";
 import SectionCheckbox from "./SectionCheckbox";
+import SectionCheckboxGeneral from "./SectionCheckboxGeneral";
 import SectionOperateCheckbox from "./SectionOperateCheckbox";
 import SectionTheoryCheckbox from "./SectionTheoryCheckbox";
 import SectionPracticeCheckbox from "./SectionPracticeCheckbox";
 import SectionOperateTheoryCheckbox from "./SectionOperateTheoryCheckbox";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    //color: theme.main,
-  },
-  inputSearch: {
-    marginLeft: 8,
-    flex: 1,
-  },
-  subjectName: {
-    color: theme.palette.text.secondary,
-    fontSize: 13,
-  },
-  btnContainer: {
-    "& > *": {
-      margin: "4px !important",
-    },
-    textAlign: "right",
-  },
-  checkBoxContainer: {
-    marginLeft: 8,
-  },
-  subjectContainer: {
-    padding: 8,
-  },
-  hover: {},
-  selected: {},
-}));
 
 const fetchDataRegister = async (txtSearch, rowsPerPage, page) => {
   const res = await axios.get(`effect-covid-learner-survey/survey/register`);
@@ -67,7 +42,7 @@ const update = async (data) => {
 
 const Dashboard = () => {
   const alert = useAlert();
-
+  const studentData = useSelector((state) => state.auth.studentData);
   const resDataRegister = useQuery(
     ["dataDataRegister"],
     () => fetchDataRegister(),
@@ -76,9 +51,19 @@ const Dashboard = () => {
     }
   );
 
+  const schema = Yup.object().shape({
+    ETC_A18: Yup.string()
+      .when("A18", {
+        is: true,
+        then: Yup.string(),
+        otherwise: Yup.string().notRequired().nullable(),
+      })
+      .nullable(),
+  });
+
   const { register, handleSubmit, watch, setValue, errors, control, reset } =
     useForm({
-      //resolver: yupResolver(schema),
+      resolver: yupResolver(schema),
     });
 
   const resSubmitForm = useMutation(update, {
@@ -92,8 +77,11 @@ const Dashboard = () => {
     },
   });
 
+  const onToggleA18Handler = (event, index) => {
+    setValue("ETC_A18", "");
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
     resSubmitForm.mutate(data);
   };
 
@@ -123,9 +111,6 @@ const Dashboard = () => {
     },
   ];
 
-  const question = [{}];
-
-  let countPage = 1;
   let content = <Loading />;
   if (!resDataRegister.isLoading) {
     if (resDataRegister.isError) {
@@ -141,9 +126,29 @@ const Dashboard = () => {
         />
       );
     } else {
+      const { registers, answer } = resDataRegister.data;
+      const { ETC, SUBMIT_FORM } = answer;
       content = (
-        <Paper className={"responsive"}>
+        <div>
           <Title title="แบบสํารวจสภาพปัญหาการจัดเรียนการสอนออนไลน์ในสถานการณ์การแพร่ระบาดของ โรคติดเชื้อไวรัสโคโรนา 19" />
+          <Typography
+            variant="button"
+            display="block"
+            gutterBottom
+            color="secondary"
+          >
+            ในการเรียนภาคเรียนที่ 1/64 นักศึกษาเรียนทฤษฎี ฝึกปฏิบัติ
+            สังเกตการณ์สอน ฝึกสอน ฝึกงาน รับการนิเทศ จากอาจารย์ผู้สอน
+            ผ่านระบบอะไรบ้าง ตอบได้มากกว่า 1 ข้อ
+          </Typography>
+          <SectionCheckboxGeneral
+            watch={watch("A18")}
+            control={control}
+            answer={answer}
+            errors={errors}
+            onchange={onToggleA18Handler}
+            SUBMIT_FORM={SUBMIT_FORM}
+          />
           <Typography
             variant="button"
             display="block"
@@ -156,7 +161,11 @@ const Dashboard = () => {
             </u>
             ข้อใดไม่มีปัญหาให้เว้นไว้
           </Typography>
-          <SectionCheckbox control={control} />{" "}
+          <SectionCheckbox
+            control={control}
+            answer={answer}
+            SUBMIT_FORM={SUBMIT_FORM}
+          />
           <Typography
             variant="button"
             display="block"
@@ -169,7 +178,7 @@ const Dashboard = () => {
             </u>
             ทุกวิชาข้อใดไม่มีปัญหาให้เว้นไว้
           </Typography>
-          {resDataRegister.data.map((val, index) => {
+          {registers.map((val, index) => {
             const bg = index % 2 == 0 ? "#EEEEEE" : "#FFFFFF";
             const subject = `${index + 1}. ${val.SUBJECT_CODE} ${
               val.SUBJECT_NAME
@@ -177,7 +186,20 @@ const Dashboard = () => {
               val.TIME_TO
             } น.`;
             const teacher = `ผู้สอน ${val.TEACHER}`;
-
+            const defaultVal = {
+              Q1: val.Q1,
+              Q2: val.Q2,
+              Q3: val.Q3,
+              Q4: val.Q4,
+              Q5: val.Q5,
+              Q6: val.Q6,
+              Q7: val.Q7,
+              Q8: val.Q8,
+              Q9: val.Q9,
+              Q10: val.Q10,
+              Q11: val.Q11,
+              Q12: val.Q12,
+            };
             return (
               <div key={index}>
                 {checkSubjectType(val.T_HOUR, val.P_HOUR, val.S_HOUR) === 1 && (
@@ -187,6 +209,8 @@ const Dashboard = () => {
                     control={control}
                     teacher={teacher}
                     subject={subject}
+                    defaultVal={defaultVal}
+                    SUBMIT_FORM={SUBMIT_FORM}
                   />
                 )}
                 {checkSubjectType(val.T_HOUR, val.P_HOUR, val.S_HOUR) === 2 && (
@@ -196,6 +220,8 @@ const Dashboard = () => {
                     control={control}
                     teacher={teacher}
                     subject={subject}
+                    defaultVal={defaultVal}
+                    SUBMIT_FORM={SUBMIT_FORM}
                   />
                 )}
                 {checkSubjectType(val.T_HOUR, val.P_HOUR, val.S_HOUR) === 3 && (
@@ -205,6 +231,8 @@ const Dashboard = () => {
                     control={control}
                     teacher={teacher}
                     subject={subject}
+                    defaultVal={defaultVal}
+                    SUBMIT_FORM={SUBMIT_FORM}
                   />
                 )}
                 {checkSubjectType(val.T_HOUR, val.P_HOUR, val.S_HOUR) === 4 && (
@@ -214,12 +242,51 @@ const Dashboard = () => {
                     control={control}
                     teacher={teacher}
                     subject={subject}
+                    defaultVal={defaultVal}
+                    SUBMIT_FORM={SUBMIT_FORM}
                   />
                 )}
               </div>
             );
           })}
-        </Paper>
+          <div style={{ marginTop: 32 }}>
+            <Controller
+              as={
+                <TextField
+                  size={"small"}
+                  variant="outlined"
+                  style={{ width: 400 }}
+                  margin="none"
+                  multiline
+                  rows={2}
+                  disabled={SUBMIT_FORM}
+                />
+              }
+              label={
+                <Typography variant="body2" display="block" color="textPrimary">
+                  ให้นักศึกษากรอกปัญหาอื่น ๆ (ถ้ามี)
+                </Typography>
+              }
+              name="ETC"
+              control={control}
+              defaultValue={ETC}
+            />
+          </div>
+          <Box sx={{ py: 2 }}>
+            <Button
+              disabled={
+                SUBMIT_FORM === false && studentData.OPEN === true
+                  ? false
+                  : true
+              }
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              ส่งคำตอบ
+            </Button>
+          </Box>
+        </div>
       );
     }
   }
@@ -240,21 +307,7 @@ const Dashboard = () => {
           <BreadcrumbItem links={link} />
           <Grid container>
             <Grid item xs={12} sm={12}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                {content}
-                <Box sx={{ py: 2 }}>
-                  <Button
-                    // disabled={
-                    //   checkDisableButtonSubmit() || resQ.isLoading || !teacherData.Q
-                    // }
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                  >
-                    ส่งคำตอบ
-                  </Button>
-                </Box>
-              </form>
+              <form onSubmit={handleSubmit(onSubmit)}>{content}</form>
             </Grid>
           </Grid>
         </Container>

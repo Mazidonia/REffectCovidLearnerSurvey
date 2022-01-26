@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --config webpack.config.js",
-    "build": "rimraf effectcovidlearnersurvey && webpack --config webpack.prod.config.js --progress --profile --color"
+    "build": "rimraf effect-covid-learner-survey && webpack --config webpack.prod.config.js --progress --profile --color"
   },
   "author": "ATEn",
   "license": "ISC",
@@ -60,6 +60,7 @@
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
+    "react-barcode-reader": "^0.0.2",
     "react-chartjs-2": "^2.11.1",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",

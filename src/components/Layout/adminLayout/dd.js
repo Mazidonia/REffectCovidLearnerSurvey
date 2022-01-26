@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from "react";
-import { useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import DialogConfirm from "../../../components/UI/Dialog/DialogConfirm";
 import * as actions from "../../../store/actions/index";
-
 import axios from "../../../axios/axios-api";
 
 import PropTypes from "prop-types";
@@ -16,12 +15,12 @@ import {
   List,
   Typography,
 } from "@material-ui/core";
-import { LogOut as LogOutIcon } from "react-feather";
-
-import { Timeline as TimelineIcon } from "@material-ui/icons";
+import {
+  Logout as LogoutIcon,
+  Timeline as TimelineIcon,
+} from "@material-ui/icons";
 
 import NavItem from "./NavItem";
-import NavButtonItem from "./NavButtonItem";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,12 +28,6 @@ const reducer = (state, action) => {
       return { ...state, ...{ openLogoutForm: true } };
     case "ON_CLOSE_FORM_LOGOUT":
       return { ...state, ...{ openLogoutForm: false } };
-    case "ON_TOGGLE_MENU_BASE_DATA":
-      return { ...state, ...{ openMenuBaseData: action.open } };
-    case "ON_TOGGLE_MENU_EDU_DATA":
-      return { ...state, ...{ openMenuEduData: action.open } };
-    case "ON_TOGGLE_MENU_COURSE_DATA":
-      return { ...state, ...{ openMenuCourseData: action.open } };
     default:
       return state;
   }
@@ -43,14 +36,10 @@ const reducer = (state, action) => {
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   let initState = {
     openLogoutForm: false,
-    openMenuBaseData: false,
-    openMenuEduData: false,
-    openMenuCourseData: false,
   };
-  const studentData = useSelector((state) => state.auth.studentData);
   const location = useLocation();
   const [state, dispatchState] = useReducer(reducer, initState);
-
+  //const studentData = useSelector((state) => state.auth.studentData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,7 +50,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
 
   const onLogoutHandler = async () => {
     try {
-      const endPoint = "effect-covid-learner-survey/auth/logout";
+      const endPoint = "effect-covid-learner-survey/logout";
       const res = await axios.put(endPoint);
       if (res) {
         dispatch(actions.logout());
@@ -80,27 +69,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const closeFormLogoutHandler = () => {
     dispatchState({
       type: "ON_CLOSE_FORM_LOGOUT",
-    });
-  };
-
-  const onOpenMenuBaseDataHandler = () => {
-    dispatchState({
-      type: "ON_TOGGLE_MENU_BASE_DATA",
-      open: !state.openMenuBaseData,
-    });
-  };
-
-  const onOpenMenuEduDataHandler = () => {
-    dispatchState({
-      type: "ON_TOGGLE_MENU_EDU_DATA",
-      open: !state.openMenuEduData,
-    });
-  };
-
-  const onOpenMenuCourseDataHandler = () => {
-    dispatchState({
-      type: "ON_TOGGLE_MENU_COURSE_DATA",
-      open: !state.openMenuCourseData,
     });
   };
 
@@ -139,7 +107,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             height: 56,
           }}
         />
-        <Typography color="textPrimary" variant="h5">
+        {/* <Typography color="textPrimary" variant="h5">
           {studentData.STD_CODE}
         </Typography>
         <Typography color="textSecondary" variant="body2">
@@ -153,22 +121,22 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </Typography>
         <Typography color="textSecondary" variant="body2">
           {studentData.FAC_NAME}
-        </Typography>
+        </Typography> */}
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
           <NavItem
-            href={"/effect-covid-learner-survey/survey"}
+            href={"/effect-covid-learner-survey/servey"}
             key={"ds"}
             title={"ตอบแบบสอบถาม"}
             icon={TimelineIcon}
           />
-          <NavButtonItem
+          <NavItem
             handler={openFormLogoutHandler}
-            key={"logout"}
+            key={"dd"}
             title={"ออกจากระบบ"}
-            icon={LogOutIcon}
+            icon={LogoutIcon}
           />
         </List>
       </Box>
@@ -185,9 +153,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </Typography>
         <Typography align="center" variant="body2">
           1.0.0
-        </Typography>
-        <Typography align="center" variant="body2">
-          สำนักส่งเสริมวิชาการฯ
         </Typography>
       </Box>
     </Box>

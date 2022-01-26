@@ -7,7 +7,7 @@ const initialState = {
   error: false,
   errorMsg: null,
   loading: false,
-  teacherData: null,
+  studentData: null,
 };
 
 const authStart = (state) => {
@@ -16,7 +16,7 @@ const authStart = (state) => {
 
 const authSuccess = (state, action) => {
   return updateObject(state, {
-    teacherData: action.teacherData,
+    studentData: action.studentData,
     accessToken: action.accessToken,
     refreshToken: action.refreshToken,
     loading: false,
